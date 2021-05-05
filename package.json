@@ -8,8 +8,19 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@reduxjs/toolkit": "^1.5.1",
+    "approximate-number": "^2.0.0",
+    "hh-mm-ss": "^1.2.0",
     "next": "10.2.0",
+    "query-string": "^7.0.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.4",
+    "styled-components": "^5.2.3",
+    "swr": "^0.5.5"
   }
 }

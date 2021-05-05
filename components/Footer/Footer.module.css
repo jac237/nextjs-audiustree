@@ -1,0 +1,9 @@
+.container {
+  background-color: black;
+  margin-top: 60px;
+  padding: 50px 0px;
+}
+
+.footerLink {
+  font-weight: 500;
+}

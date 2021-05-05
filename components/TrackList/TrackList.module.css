@@ -1,0 +1,10 @@
+.menuIcon {
+  margin-right: 0.5em;
+  color: #a7a7a7;
+}
+
+.nowPlaying {
+  color: #02e976;
+  display: flex;
+  align-items: center;
+}
