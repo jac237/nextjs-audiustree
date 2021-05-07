@@ -14,6 +14,7 @@ export default async function handler(req, res) {
 
   if (!reposts.data) {
     console.log('REPOSTS:', reposts);
+    throw new Error(reposts.message);
   }
 
   // filter tracks using the 'item_type' attribute
