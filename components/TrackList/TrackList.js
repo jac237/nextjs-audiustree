@@ -18,12 +18,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import AlbumIcon from '@material-ui/icons/Album';
-import GroupIcon from '@material-ui/icons/Group';
-import ArtTrackIcon from '@material-ui/icons/ArtTrack';
+import PersonIcon from '@material-ui/icons/Person';
+import CodeIcon from '@material-ui/icons/Code';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Skeleton from '@material-ui/lab/Skeleton';
-import MetadataDialog from '../MetadataDialog/MetadataDialog';
+import TrackDialog from '../MetadataDialogs/TrackDialog';
 import getTweetIntent from '../../lib/getTweetIntent';
 
 export default function TrackList({ tracks }) {
@@ -38,14 +38,18 @@ export default function TrackList({ tracks }) {
   );
 }
 
+const initialState = {
+  mouseX: null,
+  mouseY: null,
+};
+
 const TrackListItem = ({ track }) => {
   const currentTrack = useSelector(selectCurrentTrack);
   const dispatch = useDispatch();
+  const [state, setState] = useState(initialState);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isDialogOpen, setDialogOpen] = useState(false);
 
   const handleMenuClick = (event) => {
-    console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
 
@@ -58,18 +62,25 @@ const TrackListItem = ({ track }) => {
     dispatch(setCurrentTrack(track));
   };
 
-  const handleDialogClick = () => {
-    setAnchorEl(null);
-    setDialogOpen(true);
+  const handleRightClick = (event) => {
+    event.preventDefault();
+    setState({
+      mouseX: event.clientX - 2,
+      mouseY: event.clientY - 4,
+    });
   };
 
-  const handleDialogClose = () => {
-    setDialogOpen(false);
+  const handleCloseContext = () => {
+    setState(initialState);
   };
 
   return (
     <>
-      <ListItem button onClick={() => handleTrackClick(track)}>
+      <ListItem
+        button
+        onClick={() => handleTrackClick(track)}
+        onContextMenu={handleRightClick}
+      >
         <ListItemAvatar>
           {track.artwork ? (
             <Avatar
@@ -125,6 +136,18 @@ const TrackListItem = ({ track }) => {
           }
         />
 
+        {track?.genre === 'Moombahton' && (
+          <img
+            alt="fire"
+            src="https://i.imgur.com/O4bkcwy.png"
+            style={{
+              width: 18,
+              height: 18,
+              marginRight: 8,
+            }}
+          />
+        )}
+
         <ListItemSecondaryAction
           style={{
             display: 'flex',
@@ -146,7 +169,8 @@ const TrackListItem = ({ track }) => {
       </ListItem>
 
       <Menu
-        id="track-menu"
+        id="track-button-menu"
+        keepMounted
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
@@ -158,40 +182,73 @@ const TrackListItem = ({ track }) => {
           vertical: 'bottom',
           horizontal: 'center',
         }}
-        keepMounted
       >
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={getTweetIntent(track.id)}
-        >
-          <MenuItem onClick={handleMenuClose}>
-            <TwitterIcon className={styles.menuIcon} />
-            <Typography variant="subtitle2">Share</Typography>
-          </MenuItem>
-        </a>
-
-        <Link href={`/user/${track.user.handle}`}>
-          <MenuItem onClick={handleMenuClose}>
-            <GroupIcon className={styles.menuIcon} />
-            <Typography variant="subtitle2">View Artist</Typography>
-          </MenuItem>
-        </Link>
-
-        <Link href={`/tracks/${track.id}`}>
-          <MenuItem onClick={handleMenuClose}>
-            <AlbumIcon className={styles.menuIcon} />
-            <Typography variant="subtitle2">View Track</Typography>
-          </MenuItem>
-        </Link>
-
-        <MenuItem onClick={handleDialogClick}>
-          <ArtTrackIcon className={styles.menuIcon} />
-          <Typography variant="subtitle2">View Metadata</Typography>
-        </MenuItem>
+        <MenuItems track={track} onMenuClose={handleMenuClose} />
       </Menu>
 
-      <MetadataDialog
+      <Menu
+        id="track-context-menu"
+        keepMounted
+        open={state.mouseY !== null}
+        onClose={handleCloseContext}
+        anchorReference="anchorPosition"
+        anchorPosition={
+          state.mouseY !== null && state.mouseX !== null
+            ? { top: state.mouseY, left: state.mouseX }
+            : undefined
+        }
+      >
+        <MenuItems track={track} onMenuClose={handleCloseContext} />
+      </Menu>
+    </>
+  );
+};
+
+const MenuItems = ({ track, onMenuClose }) => {
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogClick = () => {
+    onMenuClose();
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  return (
+    <>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={getTweetIntent(track.id)}
+      >
+        <MenuItem onClick={onMenuClose}>
+          <TwitterIcon className={styles.menuIcon} />
+          <Typography variant="subtitle2">Share</Typography>
+        </MenuItem>
+      </a>
+
+      <MenuItem onClick={handleDialogClick}>
+        <CodeIcon className={styles.menuIcon} />
+        <Typography variant="subtitle2">View Metadata</Typography>
+      </MenuItem>
+
+      <Link href={`/tracks/${track.id}`}>
+        <MenuItem onClick={onMenuClose}>
+          <AlbumIcon className={styles.menuIcon} />
+          <Typography variant="subtitle2">View Track</Typography>
+        </MenuItem>
+      </Link>
+
+      <Link href={`/user/${track.user.handle}`}>
+        <MenuItem onClick={onMenuClose}>
+          <PersonIcon className={styles.menuIcon} />
+          <Typography variant="subtitle2">View Artist</Typography>
+        </MenuItem>
+      </Link>
+
+      <TrackDialog
         track={track}
         open={isDialogOpen}
         handleClose={handleDialogClose}
@@ -204,13 +261,11 @@ const LoadingListItem = () => {
   return (
     <ListItem button>
       <ListItemAvatar>
-        <Avatar variant="square">
-          <AlbumIcon style={{ height: 40, width: 40 }} />
-        </Avatar>
+        <Skeleton animation="wave" variant="rect" width={40} height={40} />
       </ListItemAvatar>
 
       <ListItemText
-        primary={<Skeleton animation="wave" variant="text" width="50%" />}
+        primary={<Skeleton animation="wave" variant="text" width="60%" />}
         secondary={<Skeleton animation="wave" variant="text" width="20%" />}
       />
     </ListItem>
