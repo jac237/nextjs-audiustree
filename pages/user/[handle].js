@@ -10,8 +10,10 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import TrackList from '../../components/TrackList/TrackList';
+import Skeleton from '@material-ui/lab/Skeleton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import TrackList from '../../components/TrackList/TrackList';
+import UserDialog from '../../components/MetadataDialogs/UserDialog';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -25,21 +27,20 @@ export default function User() {
 
   console.log('USER:', user);
 
-  if (!user) return <div>Loading User</div>;
-
   return (
     <div>
       <Head>
         <title>{user ? `${user.name} | AudiusTree` : 'AudiusTree'}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+
       <div
         style={{
           width: '100%',
           height: 240,
           backgroundColor: '#111111',
           backgroundImage: `url(${
-            user.cover_photo
+            user?.cover_photo
               ? user.cover_photo['2000x']
               : 'https://i.imgur.com/Ut6DnI5.jpg'
           })`,
@@ -51,15 +52,33 @@ export default function User() {
 
       <Container maxWidth="md">
         <UserInfo user={user} />
-        <UserTracks id={user.id} />
+        <UserTracks id={user?.id} handle={user?.handle} />
       </Container>
     </div>
   );
 }
 
+// TODO: ADD BUTTON FOR USER ID METADATA
 const UserInfo = ({ user }) => {
+  if (!user) return <LoadingUserInfo />;
+
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogClick = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
     <>
+      <UserDialog
+        user={user}
+        open={isDialogOpen}
+        handleClose={handleDialogClose}
+      />
       <Grid
         container
         justify="space-between"
@@ -68,15 +87,16 @@ const UserInfo = ({ user }) => {
       >
         <Grid item>
           <Avatar
+            onClick={handleDialogClick}
             src={
               user.profile_picture
                 ? user.profile_picture['480x480']
                 : 'https://i.imgur.com/iajv7J1.png'
             }
             style={{
-              height: 100,
-              width: 100,
-              border: '4px solid rgb(255, 255, 255, 0.7)',
+              height: 150,
+              width: 150,
+              // border: '4px solid rgb(255, 255, 255, 0.7)',
             }}
           />
         </Grid>
@@ -138,16 +158,94 @@ const UserInfo = ({ user }) => {
   );
 };
 
-const UserTracks = ({ id }) => {
-  console.log(id);
+const LoadingUserInfo = () => {
+  return (
+    <Grid
+      container
+      direction="column"
+      spacing={1}
+      style={{ margin: 0, width: '100%' }}
+    >
+      <Grid item container alignItems="center">
+        <Grid item xs={4}>
+          <Skeleton
+            animation="wave"
+            variant="circle"
+            width={150}
+            height={150}
+          />
+        </Grid>
+
+        <Grid item xs={8}>
+          <RoundSkeleton
+            animation="wave"
+            variant="rect"
+            width="100%"
+            height={120}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid item container>
+        <RoundSkeleton
+          animation="wave"
+          variant="rect"
+          width="30%"
+          height={50}
+        />
+      </Grid>
+
+      <Grid item container>
+        <RoundSkeleton
+          animation="wave"
+          variant="rect"
+          width="100%"
+          height={100}
+        />
+      </Grid>
+    </Grid>
+  );
+};
+
+const UserTracks = ({ id, handle }) => {
+  console.log('USER_ID:', id);
+
+  if (!id) return <TrackList />;
+
   const { data: tracks, error: tracksError } = useSWR(
     `/api/user/tracks/${id}`,
     fetcher
   );
 
-  console.log('Tracks:', tracks);
+  console.log('User tracks:', tracks);
 
-  return <TrackList tracks={tracks} />;
+  return (
+    <>
+      <TrackList tracks={tracks} />
+      {tracks?.length >= 100 && (
+        <Grid container justify="center">
+          <Typography
+            variant="subtitle2"
+            color="textSecondary"
+            align="center"
+            style={{ border: '1px solid gray', padding: 10, borderRadius: 4 }}
+          >
+            <a
+              href={`https://audius.co/${handle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              All tracks on <Audius src="https://i.imgur.com/TdeeCK8.png" />
+            </a>
+          </Typography>
+        </Grid>
+      )}
+    </>
+  );
 };
 
 function UserStat({ value, text }) {
@@ -189,4 +287,8 @@ const Audius = styled.img`
   height: 1.5rem;
   width: 1.5rem;
   margin-left: 0.3rem;
+`;
+
+const RoundSkeleton = styled(Skeleton)`
+  border-radius: 4px;
 `;
