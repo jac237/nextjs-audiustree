@@ -2,19 +2,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.css';
 import styled from 'styled-components';
-import TimeFormat from 'hh-mm-ss';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import getTweetIntent from '../../lib/getTweetIntent';
 
 export default function Footer() {
   console.log('Footer');
@@ -37,8 +28,8 @@ export default function Footer() {
             </Grid>
 
             <Grid item xs={12} className={styles.footerLink}>
-              <a target="_blank" rel="noopener noreferrer" href="">
-                Contact us
+              <a target="_blank" rel="noopener" href="https://y.at/">
+                Yat Emojis
               </a>
             </Grid>
           </Grid>
