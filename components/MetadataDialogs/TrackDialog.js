@@ -19,7 +19,7 @@ export default function TrackDialog({ track, open, handleClose }) {
       <DialogContent style={{ paddingBottom: 50, paddingTop: 30 }}>
         <Grid container direction="column" spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="inherit" component="h1" align="center">
+            <Typography variant="inherit" component="h2" align="center">
               <UserLink onClick={handleClose}>
                 <Link href={`/tracks/${track.id}`}>{track.title}</Link>
               </UserLink>
