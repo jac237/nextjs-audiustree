@@ -16,15 +16,21 @@ export default function Footer() {
         <Grid container spacing={2}>
           <Grid item container xs={12} sm={6} spacing={2}>
             <Grid item xs={12} className={styles.footerLink}>
-              <Link href="/">Home</Link>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
             </Grid>
 
             <Grid item xs={12} className={styles.footerLink}>
-              <Link href="/about">About</Link>
+              <Link href="/about">
+                <a>About</a>
+              </Link>
             </Grid>
 
             <Grid item xs={12} className={styles.footerLink}>
-              <Link href="/about">Feedback</Link>
+              <Link href="/about">
+                <a>Feedback</a>
+              </Link>
             </Grid>
 
             <Grid item xs={12} className={styles.footerLink}>
