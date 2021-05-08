@@ -1,0 +1,27 @@
+.playButton {
+  display: flex;
+  background: #02e976;
+  color: black;
+  padding: 8px;
+  margin: 8px 0px 8px 0px;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.playButton:hover {
+  opacity: 1;
+}
+
+.statTitle {
+  color: whitesmoke;
+  text-transform: capitalize;
+}

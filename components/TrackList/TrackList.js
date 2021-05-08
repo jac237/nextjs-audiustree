@@ -81,7 +81,7 @@ const TrackListItem = ({ track }) => {
         onClick={() => handleTrackClick(track)}
         onContextMenu={handleRightClick}
       >
-        <ListItemAvatar>
+        <ListItemAvatar style={{ minWidth: 60 }}>
           {track.artwork ? (
             <Avatar
               variant="square"
@@ -121,11 +121,7 @@ const TrackListItem = ({ track }) => {
                 noWrap
                 style={{ display: 'flex', alignItems: 'center' }}
               >
-                <UserLink>
-                  <Link href={`/user/${track.user.handle}`}>
-                    {track.user.name}
-                  </Link>
-                </UserLink>
+                {track.user.name}
                 {track.user.is_verified && (
                   <CheckCircleIcon
                     style={{ color: '#02e976', fontSize: 14, marginLeft: 4 }}
@@ -229,11 +225,6 @@ const MenuItems = ({ track, onMenuClose }) => {
         </MenuItem>
       </a>
 
-      <MenuItem onClick={handleDialogClick}>
-        <CodeIcon className={styles.menuIcon} />
-        <Typography variant="subtitle2">View Metadata</Typography>
-      </MenuItem>
-
       <Link href={`/tracks/${track.id}`}>
         <MenuItem onClick={onMenuClose}>
           <AlbumIcon className={styles.menuIcon} />
@@ -247,6 +238,11 @@ const MenuItems = ({ track, onMenuClose }) => {
           <Typography variant="subtitle2">View Artist</Typography>
         </MenuItem>
       </Link>
+
+      <MenuItem onClick={handleDialogClick}>
+        <CodeIcon className={styles.menuIcon} />
+        <Typography variant="subtitle2">View Metadata</Typography>
+      </MenuItem>
 
       <TrackDialog
         track={track}
