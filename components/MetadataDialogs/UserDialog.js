@@ -110,7 +110,7 @@ const UserInfo = ({ userId, x150, x480, x1000 }) => {
         >
           <Grid item>
             <a target="_blank" rel="noopener noreferrer" href={x480}>
-              <Avatar src={x480} style={{ width: 100, height: 100 }} />
+              <Avatar src={x150} style={{ width: 100, height: 100 }} />
             </a>
           </Grid>
 
@@ -131,7 +131,7 @@ const UserInfo = ({ userId, x150, x480, x1000 }) => {
         >
           <Grid item>
             <a target="_blank" rel="noopener noreferrer" href={x1000}>
-              <Avatar src={x1000} style={{ width: 120, height: 120 }} />
+              <Avatar src={x150} style={{ width: 120, height: 120 }} />
             </a>
           </Grid>
 

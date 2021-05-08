@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import approx from 'approximate-number';
+import styles from '../../styles/Track.module.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
@@ -69,30 +71,23 @@ export default function TrackDialog({ track, open, handleClose }) {
 
 const TrackStats = ({ reposts, plays, likes }) => {
   return (
-    <Grid item container justify="center" alignItems="center" spacing={3}>
+    <Grid item container spacing={2} justify="center">
       <Grid item>
-        <Grid container alignItems="center">
-          <PlayArrowRoundedIcon style={{ color: 'gray', fontSize: 24 }} />
-          <Typography variant="subtitle2">{reposts}</Typography>
-        </Grid>
+        <Typography gutterBottom variant="subtitle2" color="textSecondary">
+          {approx(plays)} <span className={styles.statTitle}>plays</span>
+        </Typography>
       </Grid>
 
       <Grid item>
-        <Grid container alignItems="center">
-          <RepeatRoundedIcon
-            style={{ color: 'gray', fontSize: 20, marginRight: 2 }}
-          />
-          <Typography variant="subtitle2">{plays}</Typography>
-        </Grid>
+        <Typography gutterBottom variant="subtitle2" color="textSecondary">
+          {approx(reposts)} <span className={styles.statTitle}>reposts</span>
+        </Typography>
       </Grid>
 
       <Grid item>
-        <Grid container alignItems="center">
-          <FavoriteIcon
-            style={{ color: 'gray', fontSize: 16, marginRight: 4 }}
-          />
-          <Typography variant="subtitle2">{likes}</Typography>
-        </Grid>
+        <Typography gutterBottom variant="subtitle2" color="textSecondary">
+          {approx(likes)} <span className={styles.statTitle}>favorites</span>
+        </Typography>
       </Grid>
     </Grid>
   );
@@ -166,7 +161,7 @@ const TrackInfo = ({ trackId, userId, x150, x480, x1000 }) => {
           <Grid item>
             <a target="_blank" rel="noopener noreferrer" href={x480}>
               <img
-                src={x480}
+                src={x150}
                 style={{ width: 100, height: 100, borderRadius: 4 }}
               />
             </a>
@@ -190,7 +185,7 @@ const TrackInfo = ({ trackId, userId, x150, x480, x1000 }) => {
           <Grid item>
             <a target="_blank" rel="noopener noreferrer" href={x1000}>
               <img
-                src={x1000}
+                src={x150}
                 style={{ width: 120, height: 120, borderRadius: 4 }}
               />
             </a>
