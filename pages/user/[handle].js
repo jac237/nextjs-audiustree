@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import getHost from '../../lib/getHost';
 import Head from 'next/head';
 import Image from 'next/image';
 import useSWR from 'swr';
@@ -17,20 +18,23 @@ import UserDialog from '../../components/MetadataDialogs/UserDialog';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function User() {
-  const router = useRouter();
-  const { handle } = router.query;
-  const { data: user, error: userError } = useSWR(
-    `/api/user/${handle}`,
-    fetcher
-  );
+export default function User({ user, errorCode }) {
+  // const router = useRouter();
+  // const { handle } = router.query;
+  // const { data: user, error: userError } = useSWR(
+  //   `/api/user/${handle}`,
+  //   fetcher
+  // );
+  if (errorCode) console.log('ErrorCode:', errorCode);
 
   console.log('USER:', user);
 
   return (
     <div>
       <Head>
-        <title>{user ? `${user.name} | AudiusTree` : 'AudiusTree'}</title>
+        <title>
+          {user ? `${user.name} (@${user.handle}) | AudiusTree` : 'AudiusTree'}
+        </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
@@ -96,7 +100,6 @@ const UserInfo = ({ user }) => {
             style={{
               height: 150,
               width: 150,
-              // border: '4px solid rgb(255, 255, 255, 0.7)',
             }}
           />
         </Grid>
@@ -109,13 +112,18 @@ const UserInfo = ({ user }) => {
           </Grid>
 
           <Grid container>
-            <FollowButton
+            <a
               href={`https://audius.co/${user.handle}`}
               target="_blank"
               rel="noopener noreferrer"
+              className={styles.followButton}
             >
-              Follow on <Audius src="https://i.imgur.com/TdeeCK8.png" />
-            </FollowButton>
+              Follow on{' '}
+              <Audius
+                src="https://i.imgur.com/TdeeCK8.png"
+                style={{ width: '1.5rem', height: '1.5rem' }}
+              />
+            </a>
           </Grid>
         </Grid>
       </Grid>
@@ -281,6 +289,11 @@ const FollowButton = styled.a`
   text-align: center;
   background-color: #c50000;
   border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const Audius = styled.img`
@@ -292,3 +305,29 @@ const Audius = styled.img`
 const RoundSkeleton = styled(Skeleton)`
   border-radius: 4px;
 `;
+
+export async function getServerSideProps({ params }) {
+  const host = await getHost();
+  const appName = process.env.APP_NAME;
+
+  const url = `https://audius.co/${params.handle}`;
+  const resolveUrl = `${host}/v1/resolve?url=${url}&app_name=${appName}`;
+
+  console.log('/USER/:HANDLE', resolveUrl);
+
+  const result = await fetch(resolveUrl);
+
+  const errorCode = result.ok ? false : result.statusCode;
+  if (errorCode) {
+    res.statusCode = errorCode;
+  }
+
+  const json = await result.json();
+
+  return {
+    props: {
+      errorCode,
+      user: json?.data ? json.data : null,
+    }, // will be passed to the page component as props
+  };
+}
