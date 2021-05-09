@@ -134,7 +134,7 @@ const TrackListItem = ({ track }) => {
 
         {track?.genre === 'Moombahton' && (
           <img
-            alt="fire"
+            alt="moombahton-fire"
             src="https://i.imgur.com/O4bkcwy.png"
             style={{
               width: 18,
