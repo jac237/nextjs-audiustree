@@ -73,7 +73,7 @@ const UserInfo = ({ userId, x150, x480, x1000 }) => {
       <Grid item container justify="center" alignItems="center">
         <Grid item>
           <CopyToClipboard text={userId} onCopy={() => handleSnackbar(userId)}>
-            <InfoTitle>USER_ID: "{userId}"</InfoTitle>
+            <InfoTitle>USER_ID: {userId}</InfoTitle>
           </CopyToClipboard>
         </Grid>
       </Grid>

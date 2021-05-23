@@ -114,13 +114,13 @@ const TrackInfo = ({ trackId, userId, x150, x480, x1000 }) => {
             text={trackId}
             onCopy={() => handleSnackbar(trackId)}
           >
-            <InfoTitle>TRACK_ID: "{trackId}"</InfoTitle>
+            <InfoTitle>TRACK_ID: {trackId}</InfoTitle>
           </CopyToClipboard>
         </Grid>
 
         <Grid item>
           <CopyToClipboard text={userId} onCopy={() => handleSnackbar(userId)}>
-            <InfoTitle>USER_ID: "{userId}"</InfoTitle>
+            <InfoTitle>USER_ID: {userId}</InfoTitle>
           </CopyToClipboard>
         </Grid>
       </Grid>
