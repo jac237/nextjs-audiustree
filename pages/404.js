@@ -35,7 +35,7 @@ export default function Custom404() {
               align="center"
               style={{ textTransform: 'uppercase' }}
             >
-              This page no longer exists or ever existed
+              This page no longer exists or never existed
             </Typography>
           </Grid>
 

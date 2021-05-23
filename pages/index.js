@@ -71,7 +71,7 @@ const HomeTitle = () => {
 
         <Grid container>
           <Typography
-            variant="subtitle1"
+            variant="subtitle2"
             color="textSecondary"
             component="p"
             gutterBottom

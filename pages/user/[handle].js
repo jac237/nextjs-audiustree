@@ -54,7 +54,7 @@ export default function User({ user, errorCode }) {
         }}
       />
 
-      <Container maxWidth="md">
+      <Container>
         <UserInfo user={user} />
         <UserTracks id={user?.id} handle={user?.handle} />
       </Container>
@@ -86,7 +86,8 @@ const UserInfo = ({ user }) => {
       <Grid
         container
         justify="space-between"
-        style={{ padding: '20px 0px 10px 0px' }}
+        alignItems="center"
+        style={{ width: '100%', margin: 0 }}
         spacing={4}
       >
         <Grid item>
@@ -100,11 +101,16 @@ const UserInfo = ({ user }) => {
             style={{
               height: 150,
               width: 150,
+              marginRight: 20,
             }}
           />
         </Grid>
 
-        <Grid item xs style={{ maxWidth: 600 }}>
+        <Grid
+          item
+          xs
+          style={{ maxWidth: 600, paddingLeft: 0, paddingRight: 0 }}
+        >
           <Grid container justify="space-between" spacing={1}>
             <UserStat value={user.track_count} text="tracks" />
             <UserStat value={user.follower_count} text="followers" />
@@ -247,7 +253,11 @@ const UserTracks = ({ id, handle }) => {
                 alignItems: 'center',
               }}
             >
-              All tracks on <Audius src="https://i.imgur.com/TdeeCK8.png" />
+              All tracks on{' '}
+              <Audius
+                src="https://i.imgur.com/TdeeCK8.png"
+                style={{ width: '1.5rem', height: '1.5rem' }}
+              />
             </a>
           </Typography>
         </Grid>
@@ -317,16 +327,12 @@ export async function getServerSideProps({ params }) {
 
   const result = await fetch(resolveUrl);
 
-  const errorCode = result.ok ? false : result.statusCode;
-  if (errorCode) {
-    res.statusCode = errorCode;
-  }
-
+  const error = Boolean(result.message);
   const json = await result.json();
 
   return {
     props: {
-      errorCode,
+      error,
       user: json?.data ? json.data : null,
     }, // will be passed to the page component as props
   };
