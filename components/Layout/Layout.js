@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { makeStyles, withStyles, useTheme } from '@material-ui/core/styles';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,6 +21,8 @@ import SubscriptionsRoundedIcon from '@material-ui/icons/SubscriptionsRounded';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import SearchBar from '../Searchbar/Searchbar';
+import AudiusIcon from '../Icons/AudiusIcon';
+import SoundcloudIcon from '../Icons/SoundcloudIcon';
 
 const drawerWidth = 200;
 
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     background: '#1f1f1f',
+    borderRight: 'none',
   },
   content: {
     width: '100%',
@@ -62,47 +65,73 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   listItem: {
-    color: 'lightgray',
-    borderRadius: 4,
-    paddingLeft: 10,
-    '&:hover': {
-      color: 'white',
-    },
+    // color: 'lightgray',
+    // borderRadius: 4,
+    // paddingLeft: 10,
+    // '&:hover': {
+    //   color: 'white',
+    // },
   },
   listItemIcon: {
     minWidth: 44,
+    color: 'inherit',
   },
 }));
+
+const SidebarListItem = withStyles({
+  root: {
+    color: 'lightgray',
+    borderRadius: 4,
+    paddingLeft: 10,
+    paddingTop: 4,
+    paddingBottom: 4,
+    '&:hover': {
+      color: 'black',
+      background: '#02e976',
+    },
+  },
+  selected: {
+    '&.Mui-selected': {
+      color: 'black',
+      background: '#02e976',
+      '&:hover': {
+        color: 'black',
+        background: '#02e976',
+        opacity: 0.8,
+      },
+    },
+  },
+})(ListItem);
 
 function ResponsiveDrawer(props) {
   const { window, children } = props;
   const classes = useStyles();
   const router = useRouter();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
-    <div style={{ padding: '0 16px 0 10px' }}>
+    <div style={{ padding: '0 10px 0 10px' }}>
       <List
         subheader={
           <ListSubheader
             disableGutters
-            style={{ fontWeight: 'bold', letterSpacing: 2 }}
+            style={{
+              fontWeight: 'bold',
+              letterSpacing: 2,
+              textAlign: 'center',
+            }}
           >
             AUDIUSTREE
           </ListSubheader>
         }
       >
         <Link href="/">
-          <ListItem
-            button
-            className={classes.listItem}
-            selected={router.pathname === '/'}
-          >
+          <SidebarListItem button selected={router.pathname === '/'}>
             <ListItemIcon className={classes.listItemIcon}>
               <HomeRoundedIcon />
             </ListItemIcon>
@@ -110,23 +139,23 @@ function ResponsiveDrawer(props) {
               primary="Home"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
-          </ListItem>
+          </SidebarListItem>
         </Link>
 
-        <Link href="/search">
-          <ListItem
+        <Link disabled href="/search">
+          <SidebarListItem
+            disabled
             button
-            className={classes.listItem}
             selected={router.pathname === '/search'}
           >
-            <ListItemIcon className={classes.listItemIcon}>
+            <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <SearchRoundedIcon />
             </ListItemIcon>
             <ListItemText
               primary="Search"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
-          </ListItem>
+          </SidebarListItem>
         </Link>
       </List>
 
@@ -134,35 +163,33 @@ function ResponsiveDrawer(props) {
 
       <List subheader={<ListSubheader disableGutters>Featured</ListSubheader>}>
         <Link href="/featured/artists">
-          <ListItem
+          <SidebarListItem
             button
-            className={classes.listItem}
             selected={router.pathname === '/featured/artists'}
           >
-            <ListItemIcon className={classes.listItemIcon}>
+            <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <PeopleAltIcon />
             </ListItemIcon>
             <ListItemText
               primary="Artists"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
-          </ListItem>
+          </SidebarListItem>
         </Link>
 
         <Link href="/featured/playlists">
-          <ListItem
+          <SidebarListItem
             button
-            className={classes.listItem}
             selected={router.pathname === '/featured/playlists'}
           >
-            <ListItemIcon className={classes.listItemIcon}>
+            <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <SubscriptionsRoundedIcon />
             </ListItemIcon>
             <ListItemText
               primary="Playlists"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
-          </ListItem>
+          </SidebarListItem>
         </Link>
       </List>
 
@@ -170,30 +197,33 @@ function ResponsiveDrawer(props) {
 
       <List subheader={<ListSubheader disableGutters>Socials</ListSubheader>}>
         <a rel="noopener" target="_blank" href="https://audius.co/jessie">
-          <ListItem button className={classes.listItem}>
-            <ListItemIcon className={classes.listItemIcon}>
-              <img
-                src="https://i.imgur.com/TdeeCK8.png"
-                style={{ width: '1.5rem', height: '1.5rem' }}
+          <SidebarListItem button>
+            <ListItemIcon color="inherit" className={classes.listItemIcon}>
+              <AudiusIcon
+                color="inherit"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                // style={{ width: '1.5rem', height: '1.5rem' }}
               />
             </ListItemIcon>
             <ListItemText
               primary="Audius"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
-          </ListItem>
+          </SidebarListItem>
         </a>
 
         <a rel="noopener" target="_blank" href="https://twitter.com/moombahfy">
-          <ListItem button className={classes.listItem}>
-            <ListItemIcon className={classes.listItemIcon}>
+          <SidebarListItem button>
+            <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <TwitterIcon />
             </ListItemIcon>
             <ListItemText
               primary="Twitter"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
-          </ListItem>
+          </SidebarListItem>
         </a>
 
         <a
@@ -201,18 +231,21 @@ function ResponsiveDrawer(props) {
           target="_blank"
           href="https://soundcloud.com/moombahfy"
         >
-          <ListItem button className={classes.listItem}>
-            <ListItemIcon className={classes.listItemIcon}>
-              <img
-                src="/soundcloud.png"
-                style={{ width: '2rem', height: '2rem', marginLeft: '-2px' }}
+          <SidebarListItem button>
+            <ListItemIcon color="inherit" className={classes.listItemIcon}>
+              <SoundcloudIcon
+                color="inherit"
+                width="40"
+                height="40"
+                viewBox="0 0 20 20"
+                // style={{ width: '1.5rem', height: '1.5rem' }}
               />
             </ListItemIcon>
             <ListItemText
               primary="SoundCloud"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
-          </ListItem>
+          </SidebarListItem>
         </a>
       </List>
     </div>
