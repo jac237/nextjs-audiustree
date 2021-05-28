@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import AudiusHead from '../../components/Head';
+import Link from 'next/link';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -33,10 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FeaturedPlaylists() {
   return (
     <div>
-      <Head>
-        <title>Featured Playlists | AudiusTree</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <AudiusHead title="Featured Playlists" />
       <Container>
         <div>
           <Typography
@@ -117,7 +116,13 @@ const PlaylistTile = ({ id }) => {
         }}
       >
         <Grid item container justify="center">
-          <Avatar variant="square" src={cover} className={classes.avatar} />
+          <a
+            href={`https://audius.co/playlists/${playlist.id}`}
+            target="_blank"
+            rel="noopener"
+          >
+            <Avatar variant="square" src={cover} className={classes.avatar} />
+          </a>
         </Grid>
         <Grid item zeroMinWidth>
           {title}

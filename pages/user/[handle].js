@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import getHost from '../../lib/getHost';
+import AudiusHead from '../../components/Head';
 import Head from 'next/head';
 import Image from 'next/image';
 import useSWR from 'swr';
@@ -31,12 +32,7 @@ export default function User({ user, errorCode }) {
 
   return (
     <div>
-      <Head>
-        <title>
-          {user ? `${user.name} (@${user.handle}) | AudiusTree` : 'AudiusTree'}
-        </title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <AudiusHead title={user ? `${user.name} (@${user.handle})` : null} />
 
       <div
         style={{
@@ -327,13 +323,11 @@ export async function getServerSideProps({ params }) {
 
   const result = await fetch(resolveUrl);
 
-  const error = Boolean(result.message);
   const json = await result.json();
 
   return {
     props: {
-      error,
-      user: json?.data ? json.data : null,
+      user: json.data,
     }, // will be passed to the page component as props
   };
 }

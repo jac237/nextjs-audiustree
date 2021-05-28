@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import AudiusHead from '../../components/Head';
+import Link from 'next/link';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -31,9 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FeaturedArtists() {
   const classes = useStyles();
-  const [tracks, setTracks] = useState([]);
   const [users, setUsers] = useState([]);
-  // console.log(tracks.map(track => track.id));
   console.log(users);
 
   useEffect(() => {
@@ -44,10 +44,9 @@ export default function FeaturedArtists() {
       .then((res) => res.json())
       .then((json) => json.data)
       .then((tracks) => {
-        setTracks(tracks);
         let uniqueUsers = [];
         const uniqueIds = [...new Set(tracks.map((track) => track.user.id))];
-        console.log(uniqueIds);
+        // console.log(uniqueIds);
 
         uniqueIds.forEach((id) => {
           for (let i = 0; i < tracks.length; i++) {
@@ -64,10 +63,7 @@ export default function FeaturedArtists() {
 
   return (
     <div>
-      <Head>
-        <title>Featured Artists | AudiusTree</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <AudiusHead title="Featured Artists" />
       <Container>
         <div>
           <Typography
@@ -141,7 +137,11 @@ export default function FeaturedArtists() {
                         <CheckCircleIcon className={classes.verified} />
                       }
                     >
-                      <Avatar src={cover} className={classes.avatar} />
+                      <Link href={`/user/${user.handle}`}>
+                        <a>
+                          <Avatar src={cover} className={classes.avatar} />
+                        </a>
+                      </Link>
                     </Badge>
                   </Grid>
                   <Grid item zeroMinWidth>

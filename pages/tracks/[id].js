@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import getHost from '../../lib/getHost';
+import AudiusHead from '../../components/Head';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -44,10 +45,7 @@ export default function Track({ track, errorCode }) {
 
   return (
     <div>
-      <Head>
-        <title>{track ? `${track.title} | AudiusTree` : 'AudiusTree'}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <AudiusHead title={track ? `${track.title}` : null} />
       <Container maxWidth="lg">
         <TrackInfo track={track} />
       </Container>
@@ -387,17 +385,20 @@ const UserPreview = ({ user }) => {
           <Grid item container spacing={1}>
             <Grid item>
               <Typography variant="subtitle2" color="textSecondary">
-                {approx(user.track_count)} <StatTitle>tracks</StatTitle>
+                {approx(user.track_count)}{' '}
+                <span className={styles.statTitle}>tracks</span>
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="subtitle2" color="textSecondary">
-                {approx(user.follower_count)} <StatTitle>followers</StatTitle>
+                {approx(user.follower_count)}{' '}
+                <span className={styles.statTitle}>followers</span>
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="subtitle2" color="textSecondary">
-                {approx(user.followee_count)} <StatTitle>following</StatTitle>
+                {approx(user.followee_count)}{' '}
+                <span className={styles.statTitle}>following</span>
               </Typography>
             </Grid>
           </Grid>
@@ -422,18 +423,11 @@ export async function getServerSideProps({ params }) {
   console.log('/TRACKS/:ID', url);
 
   const result = await fetch(url);
-
-  const errorCode = result.ok ? false : result.statusCode;
-  if (errorCode) {
-    res.statusCode = errorCode;
-  }
-
   const json = await result.json();
 
   return {
     props: {
-      errorCode,
-      track: json?.data ? json.data : null,
+      track: json.data,
     }, // will be passed to the page component as props
   };
 }
