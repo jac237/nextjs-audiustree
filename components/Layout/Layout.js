@@ -82,9 +82,7 @@ const SidebarListItem = withStyles({
   root: {
     color: 'lightgray',
     borderRadius: 4,
-    paddingLeft: 10,
-    paddingTop: 4,
-    paddingBottom: 4,
+    padding: 4,
     '&:hover': {
       color: 'black',
       background: '#02e976',
@@ -155,6 +153,7 @@ function ResponsiveDrawer(props) {
               primary="Search"
               primaryTypographyProps={{ style: { fontWeight: 500 } }}
             />
+            <ComingSoon />
           </SidebarListItem>
         </Link>
       </List>
@@ -316,5 +315,23 @@ function ResponsiveDrawer(props) {
     </div>
   );
 }
+
+const ComingSoon = () => {
+  return (
+    <span
+      style={{
+        background: 'red',
+        borderRadius: 4,
+        color: 'white',
+        padding: '4px 8px',
+        fontSize: 10,
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+      }}
+    >
+      soon
+    </span>
+  );
+};
 
 export default ResponsiveDrawer;
