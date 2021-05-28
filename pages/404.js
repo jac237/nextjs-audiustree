@@ -1,3 +1,4 @@
+import AudiusHead from '../components/Head';
 import Head from 'next/head';
 import Link from 'next/link';
 import Container from '@material-ui/core/Container';
@@ -8,11 +9,7 @@ import Typography from '@material-ui/core/Typography';
 export default function Custom404() {
   return (
     <div>
-      <Head>
-        <title>404 | AudiusTree</title>
-        <meta name="description" content="#MOOMBAHFY" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <AudiusHead title="404" />
       <Container maxWidth="md">
         <Grid
           container
