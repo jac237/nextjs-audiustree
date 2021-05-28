@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, createRef } from 'react';
 import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -79,6 +79,7 @@ const TrackListItem = ({ track }) => {
   const [state, setState] = useState(initialState);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const menuRef = React.createRef();
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -120,6 +121,7 @@ const TrackListItem = ({ track }) => {
         <a
           target="_blank"
           rel="noopener noreferrer"
+          component="div"
           href={getTweetIntent(track.id)}
         >
           <MenuItem onClick={onMenuClose}>
@@ -179,6 +181,7 @@ const TrackListItem = ({ track }) => {
 
         <ListItemText
           style={{ width: '100%' }}
+          disableTypography
           primary={
             <Typography variant="inherit" component="h3" noWrap>
               {track.title}
