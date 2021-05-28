@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
 import Head from 'next/head';
+import AudiusHead from '../components/Head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import styled from 'styled-components';
@@ -19,12 +20,7 @@ export default function Home() {
 
   return (
     <Container>
-      <Head>
-        <title>AudiusTree | Next.js</title>
-        <meta name="description" content="#MOOMBAHFY" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+      <AudiusHead />
       <main>
         <HomeTitle />
         <TrackList tracks={tracks} />
