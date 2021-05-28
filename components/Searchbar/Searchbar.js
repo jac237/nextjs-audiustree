@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import getHost from '../../lib/getHost';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -65,12 +66,17 @@ const APP_NAME = 'AudiusTree';
 
 export default function Searchbar() {
   const classes = useStyles();
-  const [value, setValue] = useState(null);
+  const [host, setHost] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [tracks, setTracks] = useState([]);
   const [options, setOptions] = useState([]);
-  const loaded = useRef(false);
+  const [inputValue, setInputValue] = useState('');
+  const [value, setValue] = useState(null);
+
+  useEffect(() => {
+    getHost().then((host) => {
+      setHost(host ? host : API_URL);
+    });
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -81,14 +87,14 @@ export default function Searchbar() {
     }
     setLoading(true);
 
-    fetch(`${API_URL}/v1/users/search?query=${inputValue}&app_name=${APP_NAME}`)
+    fetch(`${host}/v1/users/search?query=${inputValue}&app_name=${APP_NAME}`)
       .then((res) => res.json())
       .then((json) => json.data)
       .then((users) => {
         console.log(users);
         if (active) {
-          setOptions(users.slice(0, 5));
-          // setOptions(users);
+          // setOptions(users.slice(0, 5));
+          setOptions(users);
         }
       });
 
@@ -97,18 +103,6 @@ export default function Searchbar() {
       setLoading(false);
     };
   }, [value, inputValue]);
-
-  const getUserTracks = ({ id }) => {
-    if (!id) return;
-    console.log('userId:', id);
-    fetch(`${API_URL}/v1/users/${id}/tracks?app_name=${APP_NAME}`)
-      .then((res) => res.json())
-      .then((json) => json.data)
-      .then((tracks) => {
-        console.log('tracks:', tracks);
-        setTracks(tracks);
-      });
-  };
 
   return (
     <Container disableGutters>
@@ -123,7 +117,6 @@ export default function Searchbar() {
           filterSelectedOptions
           value={value}
           clearOnBlur={false}
-          autoComplete
           noOptionsText="👉🏽 JSTJR, RayBurger, Matias_ 🔥"
           onChange={(_event, newValue) => {
             // setOptions(newValue ? [newValue, ...options] : options);
@@ -156,7 +149,7 @@ export default function Searchbar() {
           renderOption={(user) => {
             return (
               <Link href={`/user/${user.handle}`}>
-                <Grid container alignItems="center" spacing={2}>
+                <Grid container alignItems="center" spacing={1}>
                   <Grid item>
                     <Avatar
                       src={
