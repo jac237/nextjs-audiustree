@@ -72,17 +72,19 @@ export default function Searchbar() {
   const [inputValue, setInputValue] = useState('');
   const [value, setValue] = useState(null);
 
+  // get a host, else use the deault api url
   useEffect(() => {
     getHost().then((host) => {
       setHost(host ? host : API_URL);
     });
   }, []);
 
+  // get search query results when the value changes
   useEffect(() => {
     let active = true;
 
     if (inputValue === '') {
-      setOptions(value ? [value] : []);
+      setOptions([]);
       return undefined;
     }
     setLoading(true);
@@ -93,7 +95,6 @@ export default function Searchbar() {
       .then((users) => {
         console.log(users);
         if (active) {
-          // setOptions(users.slice(0, 5));
           setOptions(users);
         }
       });
@@ -109,20 +110,19 @@ export default function Searchbar() {
       <div className={classes.search}>
         <Autocomplete
           id="audius-search-bar"
+          filterSelectedOptions
+          noOptionsText="👉🏽 JSTJR, RayBurger, Matias_ 🔥"
           className={classes.autoComplete}
-          loading={loading}
           filterOptions={(x) => x}
           getOptionLabel={(x) => x.handle}
           options={options}
-          filterSelectedOptions
           value={value}
+          loading={loading}
           clearOnBlur={false}
-          noOptionsText="👉🏽 JSTJR, RayBurger, Matias_ 🔥"
           onChange={(_event, newValue) => {
-            // setOptions(newValue ? [newValue, ...options] : options);
             console.log('newValue:', newValue);
-            setValue('');
-            getUserTracks(newValue);
+            setValue(null);
+            // setInputValue('');
           }}
           onInputChange={(_event, newInputValue) => {
             setInputValue(newInputValue);
