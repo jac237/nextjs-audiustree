@@ -110,8 +110,7 @@ export default function Searchbar() {
       <div className={classes.search}>
         <Autocomplete
           id="audius-search-bar"
-          filterSelectedOptions
-          noOptionsText="👉🏽 JSTJR, RayBurger, Matias_ 🔥"
+          noOptionsText="💬 JSTJR, RayBurger, Matias 🔥"
           className={classes.autoComplete}
           filterOptions={(x) => x}
           getOptionLabel={(x) => x.handle}
