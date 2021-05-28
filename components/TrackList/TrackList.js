@@ -252,11 +252,13 @@ const TrackListItem = ({ track }) => {
             }}
           />
         )}
-
         <ListItemSecondaryAction
           style={{
             display: 'flex',
             flexDirection: 'column',
+            height: '100%',
+            justifyContent: 'space-between',
+            padding: '8px 0px',
           }}
         >
           <Typography variant="caption" color="textSecondary">

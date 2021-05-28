@@ -329,7 +329,7 @@ const ComingSoon = () => {
         textTransform: 'uppercase',
       }}
     >
-      soon
+      soon 👀
     </span>
   );
 };
