@@ -32,7 +32,17 @@ export default function User({ user, errorCode }) {
 
   return (
     <div>
-      <AudiusHead title={user ? `${user.name} (@${user.handle})` : null} />
+      <AudiusHead
+        title={user ? `${user.name} (@${user.handle})` : null}
+        description={user ? user.bio : null}
+        image={
+          user
+            ? user.profile_picture
+              ? user.profile_picture['480x480']
+              : 'https://i.imgur.com/iajv7J1.png'
+            : 'https://i.imgur.com/iajv7J1.png'
+        }
+      />
 
       <div
         style={{
