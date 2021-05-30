@@ -17,6 +17,9 @@ Router.events.on('routeChangeError', () => NProgress.done());
 const theme = createMuiTheme({
   palette: {
     type: 'dark',
+    background: {
+      default: '#121212',
+    },
   },
   typography: {
     fontFamily: [
