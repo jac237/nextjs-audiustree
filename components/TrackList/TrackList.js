@@ -74,8 +74,8 @@ const initialState = {
 
 const TrackListItem = ({ track }) => {
   const classes = useStyles();
-  const currentTrack = useSelector(selectCurrentTrack);
-  const dispatch = useDispatch();
+  // const currentTrack = useSelector(selectCurrentTrack);
+  // const dispatch = useDispatch();
   const [state, setState] = useState(initialState);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -91,7 +91,7 @@ const TrackListItem = ({ track }) => {
 
   const handleTrackClick = (track) => {
     console.log('Clicked track:', track);
-    dispatch(setCurrentTrack(track));
+    // dispatch(setCurrentTrack(track));
   };
 
   const handleRightClick = (event) => {
@@ -206,7 +206,7 @@ const TrackListItem = ({ track }) => {
                   />
                 )}
               </Typography>
-              {currentTrack?.id === track.id ? (
+              {/* {currentTrack?.id === track.id ? (
                 <Typography
                   variant="subtitle2"
                   className={styles.nowPlaying}
@@ -218,24 +218,24 @@ const TrackListItem = ({ track }) => {
                   />
                   Now Playing
                 </Typography>
-              ) : (
-                <Typography
-                  variant="subtitle2"
-                  color="textSecondary"
-                  noWrap
-                  style={{ display: 'flex', alignItems: 'center' }}
-                >
-                  <PlayArrowRoundedIcon
-                    style={{
-                      color: 'inherit',
-                      fontSize: 20,
-                      marginRight: 4,
-                      marginLeft: '-4px',
-                    }}
-                  />
-                  {approx(track.play_count)}
-                </Typography>
-              )}
+              ) : ( */}
+              <Typography
+                variant="subtitle2"
+                color="textSecondary"
+                noWrap
+                style={{ display: 'flex', alignItems: 'center' }}
+              >
+                <PlayArrowRoundedIcon
+                  style={{
+                    color: 'inherit',
+                    fontSize: 20,
+                    marginRight: 4,
+                    marginLeft: '-4px',
+                  }}
+                />
+                {approx(track.play_count)}
+              </Typography>
+              {/* )} */}
             </div>
           }
         />
