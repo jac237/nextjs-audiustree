@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
-    background: '#1f1f1f',
+    background: '#000000',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    background: '#1f1f1f',
+    background: '#000000',
     borderRight: 'none',
   },
   content: {
@@ -82,7 +82,7 @@ const SidebarListItem = withStyles({
   root: {
     color: 'lightgray',
     borderRadius: 4,
-    padding: 4,
+    padding: '4px 4px 4px 8px',
     '&:hover': {
       color: 'black',
       background: '#02e976',
@@ -122,9 +122,10 @@ function ResponsiveDrawer(props) {
               fontWeight: 'bold',
               letterSpacing: 2,
               textAlign: 'center',
+              textTransform: 'uppercase',
             }}
           >
-            AUDIUSTREE
+            AudiusTree
           </ListSubheader>
         }
       >
@@ -213,7 +214,11 @@ function ResponsiveDrawer(props) {
           </SidebarListItem>
         </a>
 
-        <a rel="noopener" target="_blank" href="https://twitter.com/moombahfy">
+        <a
+          rel="noopener"
+          target="_blank"
+          href="https://twitter.com/intent/follow?screen_name=moombahfy"
+        >
           <SidebarListItem button>
             <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <TwitterIcon />
@@ -268,7 +273,7 @@ function ResponsiveDrawer(props) {
           </IconButton>
           <img
             src="/audiustree.png"
-            alt="AudiusTree"
+            alt="AudiusFindr"
             width={50}
             height={50}
             style={{ marginRight: 14 }}
