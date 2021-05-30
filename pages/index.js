@@ -77,7 +77,7 @@ const HomeTitle = () => {
           </Typography>
         </Grid>
 
-        <Grid container>
+        <Grid container style={{ display: 'none' }}>
           <a className={styles.startPlayingButton}>
             <PlayArrowRoundedIcon style={{ marginRight: 4 }} />
             Start playing
