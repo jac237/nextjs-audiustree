@@ -93,7 +93,7 @@ export default function Searchbar() {
       .then((res) => res.json())
       .then((json) => json.data)
       .then((users) => {
-        console.log(users);
+        console.log('users', users);
         if (active) {
           setOptions(users);
         }
@@ -110,7 +110,7 @@ export default function Searchbar() {
       <div className={classes.search}>
         <Autocomplete
           id="audius-search-bar"
-          noOptionsText="💬 JSTJR, RayBurger, Matias 🔥"
+          noOptionsText="💬 JSTJR, RayBurger 🍔, Matias 🔥"
           className={classes.autoComplete}
           filterOptions={(x) => x}
           getOptionLabel={(x) => x.handle}
