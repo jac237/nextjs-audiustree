@@ -135,17 +135,17 @@ const TrackListItem = ({ track }) => {
           <Typography variant="subtitle2">View Metadata</Typography>
         </MenuItem>
 
-        <Link href={`/user/${track.user.handle}`}>
-          <MenuItem onClick={onMenuClose}>
-            <PersonIcon className={styles.menuIcon} />
-            <Typography variant="subtitle2">View Artist</Typography>
-          </MenuItem>
-        </Link>
-
         <Link href={`/tracks/${track.id}`}>
           <MenuItem onClick={onMenuClose}>
             <AlbumIcon className={styles.menuIcon} />
             <Typography variant="subtitle2">View Track</Typography>
+          </MenuItem>
+        </Link>
+
+        <Link href={`/user/${track.user.handle}`}>
+          <MenuItem onClick={onMenuClose}>
+            <PersonIcon className={styles.menuIcon} />
+            <Typography variant="subtitle2">View Artist</Typography>
           </MenuItem>
         </Link>
 
@@ -283,10 +283,10 @@ const TrackListItem = ({ track }) => {
         onClose={handleMenuClose}
         anchorOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'center',
         }}
       >
