@@ -141,7 +141,7 @@ function ResponsiveDrawer(props) {
           </SidebarListItem>
         </Link>
 
-        <Link disabled href="/search">
+        {/* <Link disabled href="/search">
           <SidebarListItem
             disabled
             button
@@ -156,7 +156,7 @@ function ResponsiveDrawer(props) {
             />
             <ComingSoon />
           </SidebarListItem>
-        </Link>
+        </Link> */}
       </List>
 
       <Divider />
