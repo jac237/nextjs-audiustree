@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-const DEFAULT_TITLE = 'AudiusTree | #Moombahton #AudiusAPI #NextJS';
+const DEFAULT_TITLE = 'AudiusTree 🍑🔥 | #Moombahton #AudiusAPI #NextJS';
 const DEFAULT_DESCRIPTION =
   "Get Moombahfy'd! New to Audius? Check out our featured tracks, artists, and playlists! Built using the Audius API. Make sure to check out these artists and give them a follow!";
 const DEFAULT_IMAGE = 'https://i.imgur.com/fHPijWA.jpg';
