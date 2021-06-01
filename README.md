@@ -1,3 +1,9 @@
+# AudiusTree v.2 (w/ Next.js)
+
+**View my journey using Next.js on Notion – AudiusTree 👇🏽**
+
+[![Notion – AudiusTree](https://i.imgur.com/Tql2HBA.png)](https://www.notion.so/AudiusTree-v-2-w-Next-js-b4410408a219454da27046148a1b1863)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
