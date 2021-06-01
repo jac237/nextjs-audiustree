@@ -94,7 +94,7 @@ export default function Searchbar() {
       .then((json) => json.data)
       .then((users) => {
         console.log('users', users);
-        if (active) {
+        if (active && users) {
           setOptions(users);
         }
       });
