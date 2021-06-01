@@ -112,6 +112,10 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleCloseMobileDrawer = () => {
+    if (mobileOpen) setMobileOpen(false);
+  };
+
   const drawer = (
     <div style={{ padding: '0 10px 0 10px' }}>
       <List
@@ -130,7 +134,11 @@ function ResponsiveDrawer(props) {
         }
       >
         <Link href="/">
-          <SidebarListItem button selected={router.pathname === '/'}>
+          <SidebarListItem
+            button
+            onClick={handleCloseMobileDrawer}
+            selected={router.pathname === '/'}
+          >
             <ListItemIcon className={classes.listItemIcon}>
               <HomeRoundedIcon />
             </ListItemIcon>
@@ -165,6 +173,7 @@ function ResponsiveDrawer(props) {
         <Link href="/featured/artists">
           <SidebarListItem
             button
+            onClick={handleCloseMobileDrawer}
             selected={router.pathname === '/featured/artists'}
           >
             <ListItemIcon color="inherit" className={classes.listItemIcon}>
@@ -180,6 +189,7 @@ function ResponsiveDrawer(props) {
         <Link href="/featured/playlists">
           <SidebarListItem
             button
+            onClick={handleCloseMobileDrawer}
             selected={router.pathname === '/featured/playlists'}
           >
             <ListItemIcon color="inherit" className={classes.listItemIcon}>
@@ -197,7 +207,7 @@ function ResponsiveDrawer(props) {
 
       <List subheader={<ListSubheader disableGutters>Socials</ListSubheader>}>
         <a rel="noopener" target="_blank" href="https://audius.co/jessie">
-          <SidebarListItem button>
+          <SidebarListItem button onClick={handleCloseMobileDrawer}>
             <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <AudiusIcon
                 color="inherit"
@@ -219,7 +229,7 @@ function ResponsiveDrawer(props) {
           target="_blank"
           href="https://twitter.com/intent/follow?screen_name=moombahfy"
         >
-          <SidebarListItem button>
+          <SidebarListItem button onClick={handleCloseMobileDrawer}>
             <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <TwitterIcon />
             </ListItemIcon>
@@ -235,7 +245,7 @@ function ResponsiveDrawer(props) {
           target="_blank"
           href="https://soundcloud.com/moombahfy"
         >
-          <SidebarListItem button>
+          <SidebarListItem button onClick={handleCloseMobileDrawer}>
             <ListItemIcon color="inherit" className={classes.listItemIcon}>
               <SoundcloudIcon
                 color="inherit"
