@@ -118,18 +118,6 @@ const TrackListItem = ({ track }) => {
 
     return (
       <>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          component="div"
-          href={getTweetIntent(track.id)}
-        >
-          <MenuItem onClick={onMenuClose}>
-            <TwitterIcon className={styles.menuIcon} />
-            <Typography variant="subtitle2">Share</Typography>
-          </MenuItem>
-        </a>
-
         <MenuItem onClick={handleDialogClick}>
           <CodeIcon className={styles.menuIcon} />
           <Typography variant="subtitle2">View Metadata</Typography>
@@ -148,6 +136,18 @@ const TrackListItem = ({ track }) => {
             <Typography variant="subtitle2">View Artist</Typography>
           </MenuItem>
         </Link>
+
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          component="div"
+          href={getTweetIntent(track.id)}
+        >
+          <MenuItem onClick={onMenuClose}>
+            <TwitterIcon className={styles.menuIcon} />
+            <Typography variant="subtitle2">Share</Typography>
+          </MenuItem>
+        </a>
 
         <TrackDialog
           track={track}
