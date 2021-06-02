@@ -141,7 +141,7 @@ const TrackListItem = ({ track }) => {
           target="_blank"
           rel="noopener noreferrer"
           component="div"
-          href={getTweetIntent(track.id)}
+          href={getTweetIntent(track)}
         >
           <MenuItem onClick={onMenuClose}>
             <TwitterIcon className={styles.menuIcon} />
