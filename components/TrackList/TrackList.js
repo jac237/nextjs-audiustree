@@ -165,6 +165,7 @@ const TrackListItem = ({ track }) => {
         button
         onClick={() => handleTrackClick(track)}
         onContextMenu={handleRightClick}
+        style={{ paddingRight: 64 }}
       >
         <ListItemAvatar className={classes.listAvatar}>
           {track.artwork ? (
@@ -235,7 +236,6 @@ const TrackListItem = ({ track }) => {
                     style={{
                       width: 18,
                       height: 18,
-                      marginRight: 8,
                       marginLeft: 4,
                     }}
                   />
@@ -277,7 +277,7 @@ const TrackListItem = ({ track }) => {
 
           <IconButton
             aria-label="more-info"
-            size="small"
+            size="medium"
             onClick={handleMenuClick}
           >
             <MoreHorizIcon />
