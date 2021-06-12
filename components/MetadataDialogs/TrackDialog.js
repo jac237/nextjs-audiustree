@@ -21,7 +21,12 @@ export default function TrackDialog({ track, open, handleClose }) {
       <DialogContent style={{ paddingBottom: 50, paddingTop: 30 }}>
         <Grid container direction="column" spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="inherit" component="h2" align="center">
+            <Typography
+              variant="inherit"
+              component="h2"
+              align="center"
+              style={{ wordBreak: 'break-word' }}
+            >
               <UserLink onClick={handleClose}>
                 <Link href={`/tracks/${track.id}`}>{track.title}</Link>
               </UserLink>
@@ -55,6 +60,23 @@ export default function TrackDialog({ track, open, handleClose }) {
             plays={track.play_count}
             likes={track.favorite_count}
           />
+
+          <Grid
+            item
+            container
+            justify="center"
+            style={{ marginTop: '-10px', wordBreak: 'break-word' }}
+          >
+            <Grid item>
+              <Typography
+                variant="subtitle2"
+                color="textSecondary"
+                align="center"
+              >
+                {track.description}
+              </Typography>
+            </Grid>
+          </Grid>
 
           <TrackInfo
             trackId={track.id}
