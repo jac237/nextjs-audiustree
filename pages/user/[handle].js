@@ -20,10 +20,19 @@ import UserDialog from '../../components/MetadataDialogs/UserDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  coverPhoto: {
+    height: 120,
+    [theme.breakpoints.up('sm')]: {
+      height: 180,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 240,
+    },
+  },
   avatar: {
     width: 100,
     height: 100,
-    margin: '16px 16px 16px 0px',
+    margin: '16px 20px 16px 0px',
     [theme.breakpoints.up('sm')]: {
       height: 150,
       width: 150,
@@ -43,6 +52,7 @@ export default function User({ user, errorCode }) {
   if (errorCode) console.log('ErrorCode:', errorCode);
 
   console.log('USER:', user);
+  const styles = useStyles();
 
   return (
     <div>
@@ -61,7 +71,6 @@ export default function User({ user, errorCode }) {
       <div
         style={{
           width: '100%',
-          height: 240,
           backgroundColor: '#111111',
           backgroundImage: `url(${
             user?.cover_photo
@@ -72,6 +81,7 @@ export default function User({ user, errorCode }) {
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
         }}
+        className={styles.coverPhoto}
       />
 
       <Container>
@@ -294,7 +304,12 @@ function UserStat({ value, text }) {
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="subtitle2" color="textSecondary" align="center">
+          <Typography
+            variant="subtitle2"
+            color="textSecondary"
+            align="center"
+            style={{ textTransform: 'capitalize' }}
+          >
             {text}
           </Typography>
         </Grid>
