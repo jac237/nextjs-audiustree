@@ -19,13 +19,17 @@ export default function Home() {
   if (error) console.log('Failed to load Home tracks');
 
   return (
-    <Container>
+    <div>
       <AudiusHead />
       <main>
-        <HomeTitle />
-        <TrackList tracks={tracks} />
+        <Container>
+          <HomeTitle />
+        </Container>
+        <Container disableGutters>
+          <TrackList tracks={tracks} />
+        </Container>
       </main>
-    </Container>
+    </div>
   );
 }
 
