@@ -268,6 +268,7 @@ function ResponsiveDrawer(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  // Navbar + Responsive Sidebar Navigation
   return (
     <div className={classes.root}>
       <AppBar position="fixed" color="inherit" className={classes.appBar}>
@@ -281,13 +282,16 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <img
-            src="/audiustree.png"
-            alt="AudiusFindr"
-            width={50}
-            height={50}
-            style={{ marginRight: 14 }}
-          />
+          <Link href="/">
+            <a style={{ marginRight: 14 }}>
+              <img
+                src="/audiustree.png"
+                alt="AudiusFindr"
+                width={50}
+                height={50}
+              />
+            </a>
+          </Link>
           <SearchBar />
         </Toolbar>
       </AppBar>
