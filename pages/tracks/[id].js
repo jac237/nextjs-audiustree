@@ -66,6 +66,9 @@ const TrackInfo = ({ track }) => {
               target="_blank"
               rel="noopener"
               href={`https://audius.co/tracks/${track.id}`}
+              style={{
+                marginBottom: 20,
+              }}
             >
               <Avatar
                 variant="square"
@@ -74,7 +77,6 @@ const TrackInfo = ({ track }) => {
                   width: 175,
                   height: 175,
                   borderRadius: 4,
-                  marginBottom: 20,
                   boxShadow:
                     'rgb(0 0 0) -10px 0px 13px -7px, rgb(0 0 0) 10px 0px 13px -7px, rgb(0 0 0 / 76%) 0px 0px 30px -2px',
                 }}
