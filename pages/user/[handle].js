@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import getHost from '../../lib/getHost';
 import AudiusHead from '../../components/Head';
 import Head from 'next/head';
@@ -16,6 +17,19 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import TrackList from '../../components/TrackList/TrackList';
 import UserDialog from '../../components/MetadataDialogs/UserDialog';
+
+const useStyles = makeStyles((theme) => ({
+  root: {},
+  avatar: {
+    width: 100,
+    height: 100,
+    margin: '16px 16px 16px 0px',
+    [theme.breakpoints.up('sm')]: {
+      height: 150,
+      width: 150,
+    },
+  },
+}));
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -62,6 +76,8 @@ export default function User({ user, errorCode }) {
 
       <Container>
         <UserInfo user={user} />
+      </Container>
+      <Container disableGutters>
         <UserTracks id={user?.id} handle={user?.handle} />
       </Container>
     </div>
@@ -72,6 +88,7 @@ export default function User({ user, errorCode }) {
 const UserInfo = ({ user }) => {
   if (!user) return <LoadingUserInfo />;
 
+  const resStyles = useStyles();
   const [isDialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogClick = () => {
@@ -94,7 +111,6 @@ const UserInfo = ({ user }) => {
         justify="space-between"
         alignItems="center"
         style={{ width: '100%', margin: 0 }}
-        spacing={4}
       >
         <Grid item>
           <Avatar
@@ -104,18 +120,14 @@ const UserInfo = ({ user }) => {
                 ? user.profile_picture['480x480']
                 : 'https://i.imgur.com/iajv7J1.png'
             }
-            style={{
-              height: 150,
-              width: 150,
-              marginRight: 20,
-            }}
+            className={resStyles.avatar}
           />
         </Grid>
 
         <Grid
           item
           xs
-          style={{ maxWidth: 600, paddingLeft: 0, paddingRight: 0 }}
+          style={{ maxWidth: 500, paddingLeft: 0, paddingRight: 0 }}
         >
           <Grid container justify="space-between" spacing={1}>
             <UserStat value={user.track_count} text="tracks" />
