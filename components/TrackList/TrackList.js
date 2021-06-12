@@ -22,6 +22,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import AlbumIcon from '@material-ui/icons/Album';
 import PersonIcon from '@material-ui/icons/Person';
 import CodeIcon from '@material-ui/icons/Code';
+import InfoIcon from '@material-ui/icons/Info';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: 60,
     height: 60,
-    borderRadius: 4,
+    borderRadius: 2,
     [theme.breakpoints.up('sm')]: {
       width: 80,
       height: 80,
@@ -119,7 +120,7 @@ const TrackListItem = ({ track }) => {
     return (
       <>
         <MenuItem onClick={handleDialogClick}>
-          <CodeIcon className={styles.menuIcon} />
+          <InfoIcon className={styles.menuIcon} />
           <Typography variant="subtitle2">View Metadata</Typography>
         </MenuItem>
 
@@ -189,23 +190,6 @@ const TrackListItem = ({ track }) => {
           }
           secondary={
             <div>
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-                noWrap
-                style={{ display: 'flex', alignItems: 'center' }}
-              >
-                {track.user.name}
-                {track.user.is_verified && (
-                  <CheckCircleIcon
-                    style={{
-                      color: '#02e976',
-                      fontSize: 14,
-                      marginLeft: 4,
-                    }}
-                  />
-                )}
-              </Typography>
               {/* {currentTrack?.id === track.id ? (
                 <Typography
                   variant="subtitle2"
@@ -219,6 +203,45 @@ const TrackListItem = ({ track }) => {
                   Now Playing
                 </Typography>
               ) : ( */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  color="textSecondary"
+                  noWrap
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
+                  {track.user.name}
+                  {track.user.is_verified && (
+                    <CheckCircleIcon
+                      style={{
+                        color: '#02e976',
+                        fontSize: 14,
+                        marginLeft: 4,
+                      }}
+                    />
+                  )}
+                </Typography>
+
+                {track?.genre === 'Moombahton' && (
+                  <img
+                    alt="moombahton-fire"
+                    src="https://i.imgur.com/O4bkcwy.png"
+                    style={{
+                      width: 18,
+                      height: 18,
+                      marginRight: 8,
+                      marginLeft: 4,
+                    }}
+                  />
+                )}
+              </div>
+
               <Typography
                 variant="subtitle2"
                 color="textSecondary"
@@ -235,23 +258,10 @@ const TrackListItem = ({ track }) => {
                 />
                 {approx(track.play_count)}
               </Typography>
-              {/* )} */}
             </div>
           }
         />
 
-        {track?.genre === 'Moombahton' && (
-          <img
-            alt="moombahton-fire"
-            src="https://i.imgur.com/O4bkcwy.png"
-            style={{
-              width: 18,
-              height: 18,
-              marginRight: 8,
-              marginLeft: 4,
-            }}
-          />
-        )}
         <ListItemSecondaryAction
           style={{
             display: 'flex',
