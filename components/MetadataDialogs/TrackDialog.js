@@ -76,6 +76,16 @@ export default function TrackDialog({ track, open, handleClose }) {
                 {track.description}
               </Typography>
             </Grid>
+
+            <Grid item style={{ margin: '10px 0px' }}>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                align="center"
+              >
+                Uploaded: {new Date(track.release_date).toLocaleString()}
+              </Typography>
+            </Grid>
           </Grid>
 
           <TrackInfo
