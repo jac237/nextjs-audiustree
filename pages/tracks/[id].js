@@ -65,7 +65,7 @@ const TrackInfo = ({ track }) => {
             <a
               target="_blank"
               rel="noopener"
-              href={`https://audius.co/tracks/${track.id}`}
+              href={`https://audius.co${track.permalink}`}
               style={{
                 marginBottom: 20,
               }}
@@ -139,7 +139,7 @@ const TrackInfo = ({ track }) => {
           </Grid>
 
           <Grid item container justify="center">
-            <AudiusButton href={`https://audius.co/tracks/${track.id}`} />
+            <AudiusButton href={`https://audius.co${track.permalink}`} />
           </Grid>
         </div>
 

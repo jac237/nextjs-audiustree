@@ -21,7 +21,8 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import AlbumIcon from '@material-ui/icons/Album';
 import PersonIcon from '@material-ui/icons/Person';
-import CodeIcon from '@material-ui/icons/Code';
+import MusicNoteRoundedIcon from '@material-ui/icons/MusicNoteRounded';
+import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded';
 import InfoIcon from '@material-ui/icons/Info';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -31,6 +32,12 @@ import TrackDialog from '../MetadataDialogs/TrackDialog';
 import getTweetIntent from '../../lib/getTweetIntent';
 
 const useStyles = makeStyles((theme) => ({
+  listItem: {
+    paddingRight: 64,
+    '&:hover': {
+      backgroundColor: '#181818',
+    },
+  },
   listAvatar: {
     minWidth: 75,
     [theme.breakpoints.up('sm')]: {
@@ -124,6 +131,19 @@ const TrackListItem = ({ track }) => {
           <Typography variant="subtitle2">View Metadata</Typography>
         </MenuItem>
 
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          component="div"
+          href={`https://audius.co${track.permalink}`}
+        >
+          <MenuItem onClick={onMenuClose}>
+            {/** UPDATE ICON 👇🏽 */}
+            <MusicNoteRoundedIcon className={styles.menuIcon} />
+            <Typography variant="subtitle2">View on Audius.co</Typography>
+          </MenuItem>
+        </a>
+
         <Link href={`/tracks/${track.id}`}>
           <MenuItem onClick={onMenuClose}>
             <AlbumIcon className={styles.menuIcon} />
@@ -137,6 +157,18 @@ const TrackListItem = ({ track }) => {
             <Typography variant="subtitle2">View Artist</Typography>
           </MenuItem>
         </Link>
+
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          component="div"
+          href={`https://dn2.monophonic.digital/v1/tracks/${track.id}/stream?app_name=AudiusTree`}
+        >
+          <MenuItem onClick={onMenuClose}>
+            <GetAppRoundedIcon className={styles.menuIcon} />
+            <Typography variant="subtitle2">Download</Typography>
+          </MenuItem>
+        </a>
 
         <a
           target="_blank"
@@ -162,10 +194,10 @@ const TrackListItem = ({ track }) => {
   return (
     <>
       <ListItem
-        button
         onClick={() => handleTrackClick(track)}
         onContextMenu={handleRightClick}
-        style={{ paddingRight: 64 }}
+        // style={{ paddingRight: 64 }}
+        className={classes.listItem}
       >
         <ListItemAvatar className={classes.listAvatar}>
           {track.artwork ? (
